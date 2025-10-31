@@ -1,14 +1,17 @@
 {
   "name": "hlprofile",
   "version": "0.1.0",
-  "description": "Minimal React SWC + SCSS + Vite one page static site",
+  "description": "Minimal React SWC + SCSS + Vite one page static site with Express server",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "node server.js",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client --ssrManifest",
+    "build:server": "vite build --outDir dist/server --ssr src/entry-server.jsx",
+    "preview": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "express": "^4.21.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -17,7 +20,13 @@
     "sass": "^1.69.5",
     "vite": "^5.0.0"
   },
-  "keywords": ["react", "vite", "swc", "scss", "static-site"],
+  "keywords": [
+    "react",
+    "vite",
+    "swc",
+    "scss",
+    "static-site"
+  ],
   "author": "hl.place",
   "license": "MIT"
 }
