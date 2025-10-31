@@ -1,27 +1,35 @@
-// Colors
-$primary-color: #3b82f6;
-$secondary-color: #1e293b;
-$text-color: #1f2937;
-$text-light: #6b7280;
-$background-color: #ffffff;
-$section-bg: #f8fafc;
+// Colors from Figma Design
+$bg-dark: #0f1a1f;
+$bg-card: rgba(15, 26, 31, 0.75);
+$bg-button-primary: #182d33;
+$bg-button-secondary: #2e4b53;
+$text-primary: #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.6);
 
 // Typography
-$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 $font-size-base: 16px;
-$font-size-large: 1.5rem;
-$font-size-xl: 2rem;
+$font-size-username: 40px;
+$font-size-bio: 24px;
+$font-size-button: 24px;
 
 // Spacing
 $spacing-xs: 0.5rem;
 $spacing-sm: 1rem;
 $spacing-md: 1.5rem;
 $spacing-lg: 2rem;
-$spacing-xl: 3rem;
+$spacing-xl: 2.5rem;
+$spacing-2xl: 32px;
+$spacing-3xl: 40px;
 
 // Layout
-$max-width: 1200px;
-$border-radius: 8px;
+$max-width: 1920px;
+$card-border-radius: 10px;
+$button-border-radius: 8px;
+$avatar-size: 240px;
+$button-height: 100px;
 
 // Breakpoints
 $mobile: 768px;
+$tablet: 1024px;
+$desktop: 1280px;
