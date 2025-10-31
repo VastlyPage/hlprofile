@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  line-height: 1.6;
+  color: $text-color;
+  background-color: $background-color;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: $background-color;
+  border-bottom: 1px solid #e5e7eb;
+  padding: $spacing-sm $spacing-md;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  h1 {
+    color: $primary-color;
+    margin-bottom: $spacing-xs;
+  }
+
+  .nav {
+    display: flex;
+    gap: $spacing-md;
+
+    a {
+      color: $text-light;
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.main {
+  flex: 1;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $spacing-lg $spacing-md;
+  width: 100%;
+}
+
+.section {
+  margin-bottom: $spacing-xl;
+  padding: $spacing-lg;
+  background-color: $section-bg;
+  border-radius: $border-radius;
+
+  h2 {
+    font-size: $font-size-xl;
+    color: $secondary-color;
+    margin-bottom: $spacing-md;
+  }
+
+  p {
+    color: $text-light;
+    line-height: 1.7;
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-md;
+  margin-top: $spacing-md;
+}
+
+.project-card {
+  background-color: $background-color;
+  padding: $spacing-md;
+  border-radius: $border-radius;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    color: $secondary-color;
+    margin-bottom: $spacing-xs;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+.footer {
+  background-color: $secondary-color;
+  color: white;
+  text-align: center;
+  padding: $spacing-md;
+  margin-top: auto;
+
+  p {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+  }
+}
+
+// Responsive design
+@media (max-width: $mobile) {
+  .header {
+    padding: $spacing-sm;
+
+    .nav {
+      flex-direction: column;
+      gap: $spacing-xs;
+    }
+  }
+
+  .main {
+    padding: $spacing-md $spacing-sm;
+  }
+
+  .section {
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
