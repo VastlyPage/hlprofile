@@ -61,6 +61,14 @@ async function createServer() {
   const app = express()
   app.use(express.json())
 
+  // Cache middleware for background image
+  app.use('/background.jpg', (req, res, next) => {
+    // Cache for 1 year (immutable asset)
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+    res.setHeader('Expires', new Date(Date.now() + 31536000000).toUTCString())
+    next()
+  })
+
   let vite
   if (!isProduction) {
     // Development mode: Create Vite server in middleware mode
@@ -70,8 +78,11 @@ async function createServer() {
     })
     app.use(vite.middlewares)
   } else {
-    // Production mode: Serve static files
-    app.use(express.static(path.resolve(__dirname, 'dist/client'), { index: false }))
+    // Production mode: Serve static files with caching
+    app.use(express.static(path.resolve(__dirname, 'dist/client'), { 
+      index: false,
+      maxAge: '1y' // Cache static assets for 1 year
+    }))
   }
 
   // POST endpoint to render with custom data
