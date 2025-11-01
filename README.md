@@ -11,18 +11,13 @@ Profile page for every Hyperliquid identity
 
 ## Development
 
-```bash
-# Install dependencies
-pnpm install
+Consult the `package.json` file.
 
-# Run development server with SSR
-pnpm dev
+## Docker Image
 
-# Build for production (client + server bundles)
-pnpm build
-
-# Run production server
-pnpm preview
+```sh
+docker build -t hl.place/hlprofile .
+docker run -p 8080:3000 hl.place/hlprofile
 ```
 
 ## API Usage
