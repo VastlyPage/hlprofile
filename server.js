@@ -62,7 +62,7 @@ async function createServer() {
   app.use(express.json())
 
   // Cache middleware for background image
-  app.use('/background.jpg', (req, res, next) => {
+  app.use('/background.png', (req, res, next) => {
     // Cache for 1 year (immutable asset)
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
     res.setHeader('Expires', new Date(Date.now() + 31536000000).toUTCString())
