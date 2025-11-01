@@ -3,10 +3,59 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import express from 'express'
 import { createServer as createViteServer } from 'vite'
+import DOMPurify from 'isomorphic-dompurify'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const isProduction = process.env.NODE_ENV === 'production'
 const PORT = process.env.PORT || 3000
+
+// Sanitization function
+function sanitizeInput(data) {
+  const sanitized = {}
+  
+  // Sanitize each field
+  if (data.Avatar) {
+    // Validate URL format and sanitize
+    try {
+      const url = new URL(data.Avatar)
+      // Only allow http/https protocols
+      if (url.protocol === 'http:' || url.protocol === 'https:') {
+        sanitized.Avatar = DOMPurify.sanitize(data.Avatar, { ALLOWED_TAGS: [] })
+      }
+    } catch (e) {
+      // Invalid URL, skip it
+      sanitized.Avatar = ''
+    }
+  }
+  
+  // Sanitize text fields (remove all HTML tags)
+  sanitized.Domain = data.Domain 
+    ? DOMPurify.sanitize(data.Domain, { ALLOWED_TAGS: [] }).slice(0, 100)
+    : undefined
+  
+  sanitized.Bio = data.Bio 
+    ? DOMPurify.sanitize(data.Bio, { ALLOWED_TAGS: [] }).slice(0, 500)
+    : undefined
+  
+  // Sanitize and validate URLs
+  const urlFields = ['Twitter', 'Discord', 'Telegram', 'Website']
+  urlFields.forEach(field => {
+    if (data[field]) {
+      try {
+        const url = new URL(data[field])
+        // Only allow http/https protocols
+        if (url.protocol === 'http:' || url.protocol === 'https:') {
+          sanitized[field] = DOMPurify.sanitize(data[field], { ALLOWED_TAGS: [] })
+        }
+      } catch (e) {
+        // Invalid URL, use default
+        sanitized[field] = '#'
+      }
+    }
+  })
+  
+  return sanitized
+}
 
 async function createServer() {
   const app = express()
@@ -28,7 +77,9 @@ async function createServer() {
   // POST endpoint to render with custom data
   app.post('/', async (req, res, next) => {
     const url = '/'
-    const data = req.body
+    
+    // Sanitize all user input
+    const data = sanitizeInput(req.body)
 
     try {
       let template
